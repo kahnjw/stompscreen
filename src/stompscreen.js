@@ -4,6 +4,7 @@ function StompScreen(options) {
   }
 
   this.el = options.el;
+  this.src = options.src;
 
   this.setupScreen(this.el);
 }
@@ -13,6 +14,7 @@ StompScreen.prototype.setupScreen = function(el) {
   this.videoEl = document.createElement('video');
   this.controlsEl = document.createElement('div');
 
+  this.videoEl.setAttribute('src', this.src);
   this.containerEl.classList.add('stompscreen-container');
   this.videoEl.classList.add('stompscreen-video');
 
