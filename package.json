@@ -1,0 +1,33 @@
+{
+  "name": "stompscreen",
+  "version": "0.0.0",
+  "description": "A video player by Stompdrop",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "karma start karma.unit.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kahnjw/stompscreen.git"
+  },
+  "author": "kahnjw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kahnjw/stompscreen/issues"
+  },
+  "homepage": "https://github.com/kahnjw/stompscreen",
+  "devDependencies": {
+    "mocha": "~1.21.4",
+    "karma-mocha": "~0.1.9",
+    "gulp": "~3.8.8",
+    "browserify": "~5.12.0",
+    "karma-browserifast": "~0.7.0",
+    "karma": "~0.12.23",
+    "bindpolyfill": "0.0.0",
+    "chai": "~1.9.1",
+    "karma-cli": "0.0.4",
+    "karma-spec-reporter": "0.0.13",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "jquery": "~2.1.1"
+  }
+}
