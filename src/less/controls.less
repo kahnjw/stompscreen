@@ -1,0 +1,53 @@
+@import "colors";
+
+.controls {
+  background-color: @background;
+  height: 35px;
+  position: relative;
+
+  .scrubber-container {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #777;
+    height: 8px;
+
+    button {
+      position: absolute;
+      background: @primary;
+      border: 3px solid #fff;
+      border-radius: 8px;
+      padding: 4px;
+      top: -5px;
+      outline: 0;
+    }
+
+    button:hover {
+      border-color: #ccc;
+      background: @primaryDark;
+    }
+
+    button:active {
+      outline: 0;
+    }
+  }
+
+  .play-pause {
+    border: 0;
+    outline: 0;
+    height: 27px;
+    width: 60px;
+    padding: 0;
+    margin: 0;
+
+    &.play {
+      background: url('../images/player-play-icon-01.svg') no-repeat center center;
+      background-size: 15px;
+    }
+
+    &.pause {
+      background: url('../images/player-pause-icon-02.svg') no-repeat center center;
+      background-size: 15px;
+    }
+  }
+}
