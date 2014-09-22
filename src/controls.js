@@ -65,6 +65,8 @@ Controls.prototype.handleScubberMouseDown = function(event) {
   var wasPlaying = this.pauseIfPlaying();
   var handleMouseUp = function(event) {
     document.body.removeEventListener('mousemove', handleSeek);
+    document.body.removeEventListener('mouseup', handleMouseUp);
+
     if(wasPlaying) {
       this.videoEl.play();
     }
@@ -83,13 +85,11 @@ Controls.prototype.handleSeek = function(event) {
 };
 
 Controls.prototype.pauseIfPlaying = function() {
-  var wasPlaying = this.isPlaying;
-
   if(this.isPlaying) {
     this.videoEl.pause();
   }
 
-  return wasPlaying;
+  return this.isPlaying;
 };
 
 
