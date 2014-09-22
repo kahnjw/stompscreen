@@ -14,15 +14,21 @@
 
     button {
       position: absolute;
-      background: #eee;
-      border: 3px solid @primary;
+      background: @primary;
+      border: 3px solid #fff;
       border-radius: 8px;
       padding: 4px;
       top: -5px;
+      outline: 0;
     }
 
     button:hover {
-      border-color: @primaryDark;
+      border-color: #ccc;
+      background: @primaryDark;
+    }
+
+    button:active {
+      outline: 0;
     }
   }
 

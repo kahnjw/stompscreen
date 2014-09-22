@@ -9,6 +9,7 @@ function Controls(options) {
 Controls.prototype.setupControls = function() {
   var handlePlayPause = this.handlePlayPause.bind(this);
   var handleTimeUpdate = this.handleTimeUpdate.bind(this);
+  var handleScubberMouseDown = this.handleScubberMouseDown.bind(this);
 
   /* Play pause setup */
   this.playPause = document.createElement('button');
@@ -29,6 +30,7 @@ Controls.prototype.setupControls = function() {
   /* Event setup */
   this.playPause.addEventListener('click', handlePlayPause);
   this.videoEl.addEventListener('timeupdate', handleTimeUpdate);
+  this.scrubber.addEventListener('mousedown', handleScubberMouseDown);
 
   /* Append to parent */
   this.containerEl.appendChild(this.scrubberContainer);
@@ -58,7 +60,37 @@ Controls.prototype.handleTimeUpdate = function(event) {
   this.scrubber.style.left = (currentPercent * 100) + '%';
 };
 
-Controls.prototype.handleSeek = function() {};
+Controls.prototype.handleScubberMouseDown = function(event) {
+  var handleSeek = this.handleSeek.bind(this);
+  var wasPlaying = this.pauseIfPlaying();
+  var handleMouseUp = function(event) {
+    document.body.removeEventListener('mousemove', handleSeek);
+    if(wasPlaying) {
+      this.videoEl.play();
+    }
+  };
+
+  document.body.addEventListener('mouseup', handleMouseUp.bind(this));
+  document.body.addEventListener('mousemove', handleSeek);
+};
+
+Controls.prototype.handleSeek = function(event) {
+  var percentChange = event.movementX / this.scrubberContainer.offsetWidth;
+  var scrubberLeft = parseFloat(this.scrubber.style.left);
+
+  this.videoEl.currentTime = this.videoEl.currentTime + (percentChange*this.videoEl.duration);
+  this.scrubber.style.left =  scrubberLeft + (percentChange*100) + '%';
+};
+
+Controls.prototype.pauseIfPlaying = function() {
+  var wasPlaying = this.isPlaying;
+
+  if(this.isPlaying) {
+    this.videoEl.pause();
+  }
+
+  return wasPlaying;
+};
 
 
 module.exports = Controls;
