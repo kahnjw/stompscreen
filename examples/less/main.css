@@ -12,14 +12,19 @@
 }
 .controls .scrubber-container button {
   position: absolute;
-  background: #eee;
-  border: 3px solid #4183c4;
+  background: #4183c4;
+  border: 3px solid #fff;
   border-radius: 8px;
   padding: 4px;
   top: -5px;
+  outline: 0;
 }
 .controls .scrubber-container button:hover {
-  border-color: #2b6a93;
+  border-color: #ccc;
+  background: #2b6a93;
+}
+.controls .scrubber-container button:active {
+  outline: 0;
 }
 .controls .play-pause {
   border: 0;
