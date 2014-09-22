@@ -8,9 +8,17 @@ function StompScreen(options) {
 
   this.el = options.el;
   this.src = options.src;
+  this.width = options.width;
+  this.autoplay = options.autoplay;
 
   this.setupScreen(this.el);
-  this.controls = new Controls(this.controlsEl);
+
+  this.controls = new Controls({
+    controlsEl: this.controlsEl,
+    videoEl: this.videoEl,
+    autoplay: this.autoplay
+  });
+
   this.paint();
 }
 
@@ -19,6 +27,11 @@ StompScreen.prototype.setupScreen = function(el) {
   this.videoEl = document.createElement('video');
   this.controlsEl = document.createElement('div');
 
+  this.containerEl.style.width = this.width + 'px';
+  this.controlsEl.classList.add('controls');
+
+  this.videoEl.width = this.width;
+  this.videoEl.style.height = 'auto';
   this.videoEl.setAttribute('src', this.src);
   this.containerEl.classList.add('stompscreen-container');
   this.videoEl.classList.add('stompscreen-video');

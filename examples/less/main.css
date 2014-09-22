@@ -1,0 +1,39 @@
+.controls {
+  background-color: #1b1b1b;
+  height: 35px;
+  position: relative;
+}
+.controls .scrubber-container {
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  background-color: #777;
+  height: 8px;
+}
+.controls .scrubber-container button {
+  position: absolute;
+  background: #eee;
+  border: 3px solid #4183c4;
+  border-radius: 8px;
+  padding: 4px;
+  top: -5px;
+}
+.controls .scrubber-container button:hover {
+  border-color: #2b6a93;
+}
+.controls .play-pause {
+  border: 0;
+  outline: 0;
+  height: 27px;
+  width: 60px;
+  padding: 0;
+  margin: 0;
+}
+.controls .play-pause.play {
+  background: url('../images/player-play-icon-01.svg') no-repeat center center;
+  background-size: 15px;
+}
+.controls .play-pause.pause {
+  background: url('../images/player-pause-icon-02.svg') no-repeat center center;
+  background-size: 15px;
+}
