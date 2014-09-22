@@ -1,6 +1,7 @@
 <html>
     <head>
         <script src="build/js/bundle.js"></script>
+        <link rel="stylesheet" href="less/main.css">
     </head>
     <body>
         <h1>Example One</h1>
@@ -11,7 +12,9 @@
           var stage = document.querySelector('#stage');
           var options = {
             el: stage,
-            src: 'stock_video/five.mp4'
+            src: 'stock_video/five.mp4',
+            autoplay: false,
+            width: 720
           };
 
           var stompScreen = StompScreen.init(options);
