@@ -56,8 +56,9 @@ Controls.prototype.handleTimeUpdate = function(event) {
   var duration = this.videoEl.duration;
 
   var currentPercent = currentTime / duration;
+  var scrubberLeftPx = currentPercent*this.scrubberContainer.offsetWidth + 'px';
 
-  this.scrubber.style.left = (currentPercent * 100) + '%';
+  this.scrubber.style.left = scrubberLeftPx;
 };
 
 Controls.prototype.handleScubberMouseDown = function(event) {
@@ -65,6 +66,8 @@ Controls.prototype.handleScubberMouseDown = function(event) {
   var wasPlaying = this.pauseIfPlaying();
   var handleMouseUp = function(event) {
     document.body.removeEventListener('mousemove', handleSeek);
+    document.body.removeEventListener('mouseup', handleMouseUp);
+
     if(wasPlaying) {
       this.videoEl.play();
     }
@@ -75,21 +78,22 @@ Controls.prototype.handleScubberMouseDown = function(event) {
 };
 
 Controls.prototype.handleSeek = function(event) {
-  var percentChange = event.movementX / this.scrubberContainer.offsetWidth;
-  var scrubberLeft = parseFloat(this.scrubber.style.left);
+  var containerRext = this.scrubberContainer.getBoundingClientRect();
+  var newPosition = event.pageX - containerRext.left;
+  var progressAsPercent = newPosition / this.scrubberContainer.offsetWidth;
 
-  this.videoEl.currentTime = this.videoEl.currentTime + (percentChange*this.videoEl.duration);
-  this.scrubber.style.left =  scrubberLeft + (percentChange*100) + '%';
+  if(progressAsPercent <= 1.0 && progressAsPercent >= 0) {
+    this.videoEl.currentTime = progressAsPercent*this.videoEl.duration;
+    this.scrubber.style.left =  newPosition + 'px';
+  }
 };
 
 Controls.prototype.pauseIfPlaying = function() {
-  var wasPlaying = this.isPlaying;
-
   if(this.isPlaying) {
     this.videoEl.pause();
   }
 
-  return wasPlaying;
+  return this.isPlaying;
 };
 
 
