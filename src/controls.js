@@ -64,16 +64,19 @@ Controls.prototype.handleTimeUpdate = function(event) {
 Controls.prototype.handleScubberMouseDown = function(event) {
   var handleSeek = this.handleSeek.bind(this);
   var wasPlaying = this.pauseIfPlaying();
+
   var handleMouseUp = function(event) {
     document.body.removeEventListener('mousemove', handleSeek);
-    document.body.removeEventListener('mouseup', handleMouseUp);
+    document.body.removeEventListener('mouseup', handleMouseUpBound);
 
     if(wasPlaying) {
       this.videoEl.play();
     }
   };
 
-  document.body.addEventListener('mouseup', handleMouseUp.bind(this));
+  var handleMouseUpBound = handleMouseUp.bind(this);
+
+  document.body.addEventListener('mouseup', handleMouseUpBound);
   document.body.addEventListener('mousemove', handleSeek);
 };
 
