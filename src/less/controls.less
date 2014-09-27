@@ -3,6 +3,15 @@
 @scrubberHeight: 8px;
 @scrubberHiddenHeight: 3px;
 
+.btn {
+  border: 0;
+  outline: 0;
+  height: 30px;
+  width: 40px;
+  padding: 0;
+  margin: 0;
+}
+
 .controls {
   background-color: @background;
   height: 30px;
@@ -28,6 +37,8 @@
       margin-left: 0;
       margin-right: 0;
       opacity: 0;
+      transform: rotate(0deg);
+      transform-origin: 50% 50% 0;
     }
 
     button:hover {
@@ -46,22 +57,35 @@
   }
 
   .play-pause {
-    border: 0;
-    outline: 0;
-    height: 27px;
+    .btn;
     width: 60px;
-    padding: 0;
-    margin: 0;
 
     &.play {
-      background: url('../images/player-play-icon-01.svg') no-repeat center center;
-      background-size: 15px;
+      background: url('../images/stompdrop_icons_play.svg') no-repeat center center;
+      background-size: 20px;
     }
 
     &.pause {
-      background: url('../images/player-pause-icon-02.svg') no-repeat center center;
-      background-size: 15px;
+      background: url('../images/stompdrop_icons_pause.svg') no-repeat center center;
+      background-size: 20px;
     }
+  }
+
+  .tag-toggle {
+    .btn;
+    background: url('../images/stompdrop_icons_tag.svg') no-repeat center center;
+    background-size: 20px;
+  }
+
+  .fullscreen {
+    .btn;
+
+    background: url('../images/stompdrop_icons_fullscreen.svg') no-repeat center center;
+    background-size: 20px;
+  }
+
+  .buttons-right {
+    float: right;
   }
 }
 
