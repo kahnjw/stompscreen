@@ -23,9 +23,14 @@ Controls.prototype.setupControls = function() {
 
   /* Scrubber setup */
   this.scrubber = document.createElement('button');
+  this.scrubberProgress = document.createElement('div');
   this.scrubberContainer = document.createElement('div');
+  this.buttonContainer = document.createElement('div');
+  this.scrubberContainer.appendChild(this.scrubberProgress);
   this.scrubberContainer.appendChild(this.scrubber);
   this.scrubberContainer.classList.add('scrubber-container');
+  this.scrubberProgress.classList.add('scrubber-progress');
+  this.buttonContainer.classList.add('button-container');
 
   /* Event setup */
   this.playPause.addEventListener('click', handlePlayPause);
@@ -34,7 +39,8 @@ Controls.prototype.setupControls = function() {
 
   /* Append to parent */
   this.containerEl.appendChild(this.scrubberContainer);
-  this.containerEl.appendChild(this.playPause);
+  this.buttonContainer.appendChild(this.playPause);
+  this.containerEl.appendChild(this.buttonContainer);
 };
 
 Controls.prototype.handlePlayPause = function(event) {
@@ -59,6 +65,7 @@ Controls.prototype.handleTimeUpdate = function(event) {
   var scrubberLeftPx = currentPercent*this.scrubberContainer.offsetWidth + 'px';
 
   this.scrubber.style.left = scrubberLeftPx;
+  this.scrubberProgress.style.width = scrubberLeftPx;
 };
 
 Controls.prototype.handleScubberMouseDown = function(event) {
@@ -88,6 +95,7 @@ Controls.prototype.handleSeek = function(event) {
   if(progressAsPercent <= 1.0 && progressAsPercent >= 0) {
     this.videoEl.currentTime = progressAsPercent*this.videoEl.duration;
     this.scrubber.style.left =  newPosition + 'px';
+    this.scrubberProgress.style.width = newPosition + 'px';
   }
 };
 
