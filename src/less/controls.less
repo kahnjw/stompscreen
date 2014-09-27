@@ -1,16 +1,21 @@
 @import "colors";
 
+@scrubberHeight: 8px;
+@scrubberHiddenHeight: 3px;
+
 .controls {
   background-color: @background;
-  height: 35px;
+  height: 30px;
   position: relative;
 
   .scrubber-container {
+    position: absolute;
+    margin-top: -3px;
     width: 100%;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     background-color: #777;
-    height: 8px;
+    height: @scrubberHiddenHeight;
 
     button {
       position: absolute;
@@ -20,6 +25,9 @@
       padding: 4px;
       top: -5px;
       outline: 0;
+      margin-left: 0;
+      margin-right: 0;
+      opacity: 0;
     }
 
     button:hover {
@@ -30,6 +38,11 @@
     button:active {
       outline: 0;
     }
+  }
+
+  .scrubber-progress {
+    height: @scrubberHiddenHeight;
+    background-color: @primary;
   }
 
   .play-pause {
@@ -49,5 +62,21 @@
       background: url('../images/player-pause-icon-02.svg') no-repeat center center;
       background-size: 15px;
     }
+  }
+}
+
+.stompscreen-container:hover {
+
+  .scrubber-container {
+    height: @scrubberHeight;
+    margin-top: -8px;
+
+    button {
+      opacity: 1;
+    }
+  }
+
+  .scrubber-progress {
+    height: @scrubberHeight;
   }
 }
