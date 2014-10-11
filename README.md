@@ -23,3 +23,26 @@ var screen = Stompscreen.init({
     width: 720
 });
 ```
+
+## Development
+
+Install dependencies:
+
+```sh
+$ npm install
+```
+
+Run the tests:
+
+```sh
+$ npm test
+```
+
+Run the dev server.
+
+```sh
+node_modules/gulp/bin.gulp.js connect
+```
+
+You'll also need to add a video file to serve up during local development. Change the
+path in [example-1.html](https://github.com/kahnjw/stompscreen/blob/master/examples/example-1.html).
