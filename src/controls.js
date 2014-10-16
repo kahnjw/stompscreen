@@ -87,7 +87,7 @@ Controls.prototype.handleTimeUpdate = function(event) {
   var scrubberLeftPx = currentPercent*this.scrubberContainer.offsetWidth;
 
   this.scrubber.style.left = scrubberLeftPx  - currentPercent*14 + 'px';;
-  this.scrubberProgress.style.width = scrubberLeftPx;
+  this.scrubberProgress.style.width = scrubberLeftPx + 'px';
 };
 
 Controls.prototype.handleScubberMouseDown = function(event) {
