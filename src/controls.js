@@ -52,6 +52,7 @@ Controls.prototype.setupControls = function() {
   this.playPause.addEventListener('click', handlePlayPause);
   this.videoEl.addEventListener('timeupdate', handleTimeUpdate);
   this.scrubber.addEventListener('mousedown', handleScubberMouseDown);
+  this.scrubberContainer.addEventListener('mousedown', handleScubberMouseDown);
   this.fullscreen.addEventListener('click', handleFullscreen);
   this.tagToggle.addEventListener('click', handleTagToggle);
 
@@ -107,6 +108,8 @@ Controls.prototype.handleScubberMouseDown = function(event) {
 
   document.body.addEventListener('mouseup', handleMouseUpBound);
   document.body.addEventListener('mousemove', handleSeek);
+
+  handleSeek(event);
 };
 
 Controls.prototype.handleSeek = function(event) {
