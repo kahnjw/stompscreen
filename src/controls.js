@@ -10,7 +10,7 @@ Controls.prototype.setupControls = function() {
   var handlePlayPause = this.handlePlayPause.bind(this);
   var handleFullscreen = this.handleFullscreen.bind(this);
   var handleTimeUpdate = this.handleTimeUpdate.bind(this);
-  var handleScubberMouseDown = this.handleScubberMouseDown.bind(this);
+  var handleScrubberMouseDown = this.handleScrubberMouseDown.bind(this);
   var handleTagToggle = this.handleTagToggle.bind(this);
 
   /* Play pause setup */
@@ -51,8 +51,8 @@ Controls.prototype.setupControls = function() {
   /* Event setup */
   this.playPause.addEventListener('click', handlePlayPause);
   this.videoEl.addEventListener('timeupdate', handleTimeUpdate);
-  this.scrubber.addEventListener('mousedown', handleScubberMouseDown);
-  this.scrubberContainer.addEventListener('mousedown', handleScubberMouseDown);
+  this.scrubber.addEventListener('mousedown', handleScrubberMouseDown);
+  this.scrubberContainer.addEventListener('mousedown', handleScrubberMouseDown);
   this.fullscreen.addEventListener('click', handleFullscreen);
   this.tagToggle.addEventListener('click', handleTagToggle);
 
@@ -91,7 +91,7 @@ Controls.prototype.handleTimeUpdate = function(event) {
   this.scrubberProgress.style.width = scrubberLeftPx + 'px';
 };
 
-Controls.prototype.handleScubberMouseDown = function(event) {
+Controls.prototype.handleScrubberMouseDown = function(event) {
   var handleSeek = this.handleSeek.bind(this);
   var wasPlaying = this.pauseIfPlaying();
 

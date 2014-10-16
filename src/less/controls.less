@@ -17,6 +17,11 @@
   height: 30px;
   position: relative;
 
+  .scrubber-progress {
+    height: @scrubberHiddenHeight;
+    background-color: @primary;
+  }
+
   .scrubber-container {
     position: absolute;
     margin-top: -3px;
@@ -41,6 +46,27 @@
       transform-origin: 50% 50% 0;
     }
 
+    button.left {
+      position: absolute;
+      left: 25%;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    button.right {
+      position: absolute;
+      left: 75%;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .area {
+      position: relative;
+      width: 50%;
+      left: 25%;
+      .scrubber-progress;
+    }
+
     button:hover {
       border-color: #ccc;
       background: @primaryDark;
@@ -49,11 +75,6 @@
     button:active {
       outline: 0;
     }
-  }
-
-  .scrubber-progress {
-    height: @scrubberHiddenHeight;
-    background-color: @primary;
   }
 
   .play-pause {
@@ -98,6 +119,10 @@
     button {
       opacity: 1;
     }
+  }
+
+  .area {
+    height: @scrubberHeight;
   }
 
   .scrubber-progress {

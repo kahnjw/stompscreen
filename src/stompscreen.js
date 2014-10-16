@@ -1,4 +1,5 @@
 var Controls = require('./controls');
+var TaggingControls = require('./tagging-controls');
 
 
 function StompScreen(options) {
@@ -13,11 +14,19 @@ function StompScreen(options) {
 
   this.setupScreen(this.el);
 
-  this.controls = new Controls({
-    controlsEl: this.controlsEl,
-    videoEl: this.videoEl,
-    autoplay: this.autoplay
-  });
+  if(options.tagging) {
+    this.controls = new TaggingControls({
+      controlsEl: this.controlsEl,
+      videoEl: this.videoEl,
+      autoplay: this.autoplay
+    });
+  } else {
+    this.controls = new Controls({
+      controlsEl: this.controlsEl,
+      videoEl: this.videoEl,
+      autoplay: this.autoplay
+    });
+  }
 
   this.paint();
 }
