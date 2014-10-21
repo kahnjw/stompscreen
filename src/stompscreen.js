@@ -48,4 +48,9 @@ StompScreen.prototype.paint = function() {
   return this.el;
 };
 
+StompScreen.prototype.setWidth = function(width) {
+  this.width = width;
+  this.containerEl.style.width = this.width + 'px';
+};
+
 module.exports = StompScreen;
