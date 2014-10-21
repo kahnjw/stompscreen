@@ -113,8 +113,8 @@ Controls.prototype.handleScrubberMouseDown = function(event) {
 };
 
 Controls.prototype.handleSeek = function(event) {
-  var containerRext = this.scrubberContainer.getBoundingClientRect();
-  var newPosition = event.pageX - containerRext.left;
+  var containerRect = this.scrubberContainer.getBoundingClientRect();
+  var newPosition = event.pageX - containerRect.left;
   var progressAsPercent = newPosition / this.scrubberContainer.offsetWidth;
 
   if(progressAsPercent <= 1.0 && progressAsPercent >= 0) {

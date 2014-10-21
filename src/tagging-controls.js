@@ -7,6 +7,8 @@ function TaggingControls(options) {
   this.containerEl = options.controlsEl;
   this.videoEl = options.videoEl;
   this.isPlaying = options.autoplay;
+  this.muted = options.muted;
+  this.videoEl.muted = !! this.muted;
 
   this.leftBoundPercentage = 0.25;
   this.rightBoundPercentage = 0.75;
@@ -20,7 +22,7 @@ function TaggingControls(options) {
 TaggingControls.prototype.setupControls = function() {
   var dragBoundLeft;
   var dragBoundRight;
-  var dragBound = this.dragBound.bind(this);
+  var dragBoundMousedown = this.dragBoundMousedown.bind(this);
 
   /* Tag scrubber setup */
   this.leftBound = document.createElement('button');
@@ -42,11 +44,20 @@ TaggingControls.prototype.setupControls = function() {
   this.scrubberContainer.appendChild(this.rightBound);
   this.containerEl.appendChild(this.scrubberContainer);
 
-  dragBoundLeft = _.partial(dragBound, this.leftBound);
-  dragBoundRight = _.partial(dragBound, this.rightBound);
+  dragBoundLeft = _.partial(
+    dragBoundMousedown,
+    'leftBoundPercentage',
+    this.leftBound
+  );
+
+  dragBoundRight = _.partial(
+    dragBoundMousedown,
+    'rightBoundPercentage',
+    this.rightBound
+  );
 
   this.leftBound.addEventListener('mousedown', dragBoundLeft);
-  this.rightBound.addEventListener('mousedown', dragBoundLeft);
+  this.rightBound.addEventListener('mousedown', dragBoundRight);
 };
 
 TaggingControls.prototype.play = function(event) {
@@ -54,10 +65,9 @@ TaggingControls.prototype.play = function(event) {
     var currentTime = this.videoEl.currentTime;
     var duration = this.videoEl.duration;
     var currentPercent = currentTime / duration;
-    var scrubberLeftPx = currentPercent*this.scrubberContainer.offsetWidth;
 
-    this.scrubber.style.left = scrubberLeftPx + 'px';
-
+    this.scrubber.style.left = currentPercent*100 + '%';
+    console.log(currentPercent, this.rightBoundPercentage);
     if(currentPercent >= this.rightBoundPercentage) {
       this.videoEl.currentTime = this.videoEl.duration*this.leftBoundPercentage;
     }
@@ -84,15 +94,34 @@ TaggingControls.prototype.setBounds = function(event) {
 TaggingControls.prototype.setBoundPosLeft = function(percentage, node) {
   var normPercentage = percentage*100;
 
-  node.style.left = (normPercentage - (normPercentage*0.05)) + '%';
+  node.style.left = normPercentage + '%';
 };
 
 TaggingControls.prototype.setBoundPosRight = function(percentage, node) {
   var normPercentage = 100 - percentage*100;
 
-  node.style.right = (normPercentage + (normPercentage*0.05)) + '%';
+  node.style.right = normPercentage + '%';
 };
 
-TaggingControls.prototype.dragBound = function() {};
+TaggingControls.prototype.dragBoundMousedown = function(percentage, node, event) {
+  var removeEvents = function() {
+    document.body.removeEventListener('mousemove', calcNewPercent);
+    document.body.removeEventListener('mouseup', removeEvents);
+  };
 
+  var boundCalcNewPercent = this.calcNewPercent.bind(this);
+  var calcNewPercent = _.partial(boundCalcNewPercent, percentage, node);
+
+  document.body.addEventListener('mousemove', calcNewPercent);
+  document.body.addEventListener('mouseup', removeEvents);
+};
+
+TaggingControls.prototype.calcNewPercent = function(percentage, node, event) {
+  var containerRect = this.scrubberContainer.getBoundingClientRect();
+  var newPosition = event.pageX - containerRect.left;
+  var progressAsPercent = newPosition / this.scrubberContainer.offsetWidth;
+
+  this[percentage] = progressAsPercent;
+  this.setBounds(event);
+};
 module.exports = TaggingControls;

@@ -18,13 +18,15 @@ function StompScreen(options) {
     this.controls = new TaggingControls({
       controlsEl: this.controlsEl,
       videoEl: this.videoEl,
-      autoplay: this.autoplay
+      autoplay: this.autoplay,
+      muted: options.muted
     });
   } else {
     this.controls = new Controls({
       controlsEl: this.controlsEl,
       videoEl: this.videoEl,
-      autoplay: this.autoplay
+      autoplay: this.autoplay,
+      muted: options.muted
     });
   }
 
