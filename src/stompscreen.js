@@ -51,6 +51,7 @@ StompScreen.prototype.paint = function() {
 StompScreen.prototype.setWidth = function(width) {
   this.width = width;
   this.containerEl.style.width = this.width + 'px';
+  this.videoEl.width = this.width;
 };
 
 module.exports = StompScreen;
