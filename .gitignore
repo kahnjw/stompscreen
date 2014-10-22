@@ -31,3 +31,5 @@ examples/build/
 
 # Stock video
 examples/stock_video/
+
+/examples/less/main.css

@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="less/main.css">
     </head>
     <body>
-        <h1>Example One</h1>
+        <h1>Example Two - Tagger</h1>
         <section id="stage">
         </section>
 
@@ -14,7 +14,9 @@
             el: stage,
             src: 'https://s3.amazonaws.com/stompdrop-output-hd-h264/jarrod/1670d546-ab44-46a5-a4cd-120681d18629',
             autoplay: false,
-            width: 720
+            width: 720,
+            tagging: true,
+            muted: true
           };
 
           var stompScreen = StompScreen.init(options);

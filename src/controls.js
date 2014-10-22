@@ -10,7 +10,7 @@ Controls.prototype.setupControls = function() {
   var handlePlayPause = this.handlePlayPause.bind(this);
   var handleFullscreen = this.handleFullscreen.bind(this);
   var handleTimeUpdate = this.handleTimeUpdate.bind(this);
-  var handleScubberMouseDown = this.handleScubberMouseDown.bind(this);
+  var handleScrubberMouseDown = this.handleScrubberMouseDown.bind(this);
   var handleTagToggle = this.handleTagToggle.bind(this);
 
   /* Play pause setup */
@@ -51,7 +51,8 @@ Controls.prototype.setupControls = function() {
   /* Event setup */
   this.playPause.addEventListener('click', handlePlayPause);
   this.videoEl.addEventListener('timeupdate', handleTimeUpdate);
-  this.scrubber.addEventListener('mousedown', handleScubberMouseDown);
+  this.scrubber.addEventListener('mousedown', handleScrubberMouseDown);
+  this.scrubberContainer.addEventListener('mousedown', handleScrubberMouseDown);
   this.fullscreen.addEventListener('click', handleFullscreen);
   this.tagToggle.addEventListener('click', handleTagToggle);
 
@@ -86,11 +87,11 @@ Controls.prototype.handleTimeUpdate = function(event) {
   var currentPercent = currentTime / duration;
   var scrubberLeftPx = currentPercent*this.scrubberContainer.offsetWidth;
 
-  this.scrubber.style.left = scrubberLeftPx  - currentPercent*14 + 'px';;
-  this.scrubberProgress.style.width = scrubberLeftPx;
+  this.scrubber.style.left = scrubberLeftPx  - currentPercent*14 + 'px';
+  this.scrubberProgress.style.width = scrubberLeftPx + 'px';
 };
 
-Controls.prototype.handleScubberMouseDown = function(event) {
+Controls.prototype.handleScrubberMouseDown = function(event) {
   var handleSeek = this.handleSeek.bind(this);
   var wasPlaying = this.pauseIfPlaying();
 
@@ -107,11 +108,13 @@ Controls.prototype.handleScubberMouseDown = function(event) {
 
   document.body.addEventListener('mouseup', handleMouseUpBound);
   document.body.addEventListener('mousemove', handleSeek);
+
+  handleSeek(event);
 };
 
 Controls.prototype.handleSeek = function(event) {
-  var containerRext = this.scrubberContainer.getBoundingClientRect();
-  var newPosition = event.pageX - containerRext.left;
+  var containerRect = this.scrubberContainer.getBoundingClientRect();
+  var newPosition = event.pageX - containerRect.left;
   var progressAsPercent = newPosition / this.scrubberContainer.offsetWidth;
 
   if(progressAsPercent <= 1.0 && progressAsPercent >= 0) {
