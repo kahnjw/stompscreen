@@ -1,6 +1,6 @@
 {
   "name": "stompscreen",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A video player by Stompdrop",
   "main": "src/index.js",
   "scripts": {
